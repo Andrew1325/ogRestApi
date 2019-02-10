@@ -17,10 +17,10 @@ app.use(bodyParser.urlencoded({
 
 const db = mysql.createPool({
   user: 'root',
-  password: '',
+  password: 'ogid01',
   database: 'ordinarygoddesses',
   host: 'localhost',
-  port: '8889',
+  port: '3306',
 })
 
 app.use((req, res, next) => {

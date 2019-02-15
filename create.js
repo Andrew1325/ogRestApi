@@ -96,7 +96,7 @@ module.exports = ({db, express}) => {
             const heading = 'You have been registered'
 
             const DOMAIN = 'ordinarygoddesses.com.au'
-            const mg = mailgun({apiKey: 'e3c8abba15a4b6582f96ec474abb9403-1b65790d-347b5715', domain: DOMAIN})
+            const mg = mailgun({apiKey: '', domain: DOMAIN})
             const data = {
               from: 'Ordinary Goddesses <noreply@ordinarygoddesses.com.au>',
               to: email,
@@ -172,7 +172,7 @@ module.exports = ({db, express}) => {
         db.query(postRequest, values, (error, result) => {
           if (result) {
             const DOMAIN = 'ordinarygoddesses.com.au'
-            const mg = mailgun({apiKey: 'e3c8abba15a4b6582f96ec474abb9403-1b65790d-347b5715', domain: DOMAIN})
+            const mg = mailgun({apiKey: '', domain: DOMAIN})
             const data = {
               from: 'Ordinary Goddesses <noreply@ordinarygoddesses.com.au>',
               to: email,

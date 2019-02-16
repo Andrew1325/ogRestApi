@@ -10,6 +10,8 @@ const config = require('./config')
 const get = require('./get')
 const create = require('./create')
 const delet = require('./delet')
+const edit = require('./edit')
+const files = require('./files')
 const auth = require('./auth')
 
 app.use(bodyParser.json())
@@ -17,13 +19,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 
-const db = mysql.createPool({
-  user: '',
-  password: '',
-  database: '',
-  host: '',
-  port: '',
-})
+const db = mysql.createPool(config.db)
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
@@ -40,8 +36,10 @@ app.use((req, res, next) => {
 app.use('/get', get({db, express}))
 app.use('/create', create({db, express}))
 app.use('/delet', delet({db, express}))
+app.use('/edit', edit({db, express}))
+app.use('/files', files({db, express, multer}))
 app.use('/auth', auth({db, express, bcrypt, jwt, jwtToken: config.jwtToken}))
 
-app.listen('127.0.0.1', () => {
-  console.log('Server running on 127.0.0.1')
+app.listen(3001, '127.0.0.1', () => {
+  console.log('Server running on 127.0.0.1:3001')
 })

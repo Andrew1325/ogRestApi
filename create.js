@@ -1,11 +1,13 @@
-var stripe = require("stripe")("sk_test_kZ4dbv9DavYUiTNXPGJTS3LA")
+const config = require('./config')
+
+var stripe = require("stripe")(config.stripeSec)
 const nodemailer = require('nodemailer')
 const mailgun = require("mailgun-js")
 module.exports = ({db, express}) => {
     const routes = express.Router()
   
       routes.post('/post', (req, res) => {
-        const user = JSON.parse(req.headers['user-details'])
+        const user = req.body.user
         const content = req.body.content
         const title = req.body.title
         const category = req.body.category
@@ -76,7 +78,7 @@ module.exports = ({db, express}) => {
         const email = req.body.email
         const eventName = req.body.eventName
         const startDate = req.body.startDate
-        const endDate = req.bodyendDate
+        const endDate = req.body.endDate
         const time = req.body.time
         const event_id = req.body.eventId
         const user_id = req.body.id
@@ -96,7 +98,7 @@ module.exports = ({db, express}) => {
             const heading = 'You have been registered'
 
             const DOMAIN = 'ordinarygoddesses.com.au'
-            const mg = mailgun({apiKey: '', domain: DOMAIN})
+            const mg = mailgun({apiKey: config.mailgun, domain: DOMAIN})
             const data = {
               from: 'Ordinary Goddesses <noreply@ordinarygoddesses.com.au>',
               to: email,
@@ -172,7 +174,7 @@ module.exports = ({db, express}) => {
         db.query(postRequest, values, (error, result) => {
           if (result) {
             const DOMAIN = 'ordinarygoddesses.com.au'
-            const mg = mailgun({apiKey: '', domain: DOMAIN})
+            const mg = mailgun({apiKey: config.mailgun, domain: DOMAIN})
             const data = {
               from: 'Ordinary Goddesses <noreply@ordinarygoddesses.com.au>',
               to: email,

@@ -1,6 +1,9 @@
 # dependencies
 node_modules
 
+#keys
+config.js
+
 # logs
 npm-debug.log
 

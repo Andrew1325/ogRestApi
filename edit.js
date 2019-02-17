@@ -52,5 +52,24 @@ module.exports = ({db, express}) => {
     })
   })
 
+  routes.post('/promotepost', (req, res) => {
+    const id = req.body.id
+    console.log(id)
+    if (!id) {
+      return res.status(400).json({type: 'error', message: 'All fields must be completed'})
+    }
+    let postRequest = 'UPDATE posts SET deleted_at = NULL WHERE id = ?'
+    
+    db.query(postRequest, id, (error, result) => {
+      if (result) {
+        console.log(result);
+        res.json({type: 'success', message: 'Test OK', result})
+      } else {
+        console.log(error);
+        return res.status(500).json({type: 'error', message: 'DB error', error})
+      }      
+    })
+  })
+
   return routes
 }

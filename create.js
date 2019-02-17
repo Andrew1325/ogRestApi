@@ -120,11 +120,12 @@ module.exports = ({db, express}) => {
         const title = req.body.title
         const subtitle = req.body.subtitle
         const description = req.body.description
-        const image_url = req.body.image_url
-        const start_date = req.body.start_date
-        const end_date = req.body.end_date
+        const image_url = req.body.titleImageUrl
+        const start_date = req.body.startDate
+        const end_date = req.body.endDate
         const time = req.body.time
         const price = req.body.price
+
         if ( !user_id || !title || !subtitle || !description || !image_url || !start_date) {
           return res.status(400).json({type: 'error', message: 'All fields must be completed'})
         }
@@ -132,6 +133,7 @@ module.exports = ({db, express}) => {
         
         let postRequest = 'INSERT INTO events (`user_id`, `title`, `subtitle`, `description`, `image_url`, `start_date`, `end_date`, `time`, `price`) VALUES (?,?,?,?,?,?,?,?,?)'
         let values = [user_id, title, subtitle, description, image_url, start_date, end_date, time, price]
+        console.log(values)
         db.query(postRequest, values, (error, result) => {
           if (result) {
             console.log(result);

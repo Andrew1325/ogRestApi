@@ -10,6 +10,15 @@ module.exports = ({db, express}) => {
           res.json({type: 'success', message: 'Test OK', results})
       })
   })
+  routes.get('/deletedposts', (req, res) => {
+    const productQuery = 'SELECT * FROM posts WHERE deleted_at IS NOT NULL'
+    db.query(productQuery, (error, results) => {
+      if (error) {
+        return res.status(500).json({type: 'error', error})
+      }
+      res.json({type: 'success', message: 'Test OK', results})
+    })
+  })
   routes.get('/events', (req, res) => {
     // WHERE start_date >= NOW() --add this to query
     const productQuery = 'SELECT * FROM events'
@@ -29,6 +38,17 @@ module.exports = ({db, express}) => {
         return res.status(500).json({type: 'error', error})
       }
       res.json({type: 'success', message: 'Got OK', results})
+    })
+  })
+  routes.get('/bookings', (req, res) => {
+    //console.log(req.query.userId)
+    // const bookingQuery = 'SELECT r.created_at, r.name, r.email  FROM registered r INNER JOIN users u ON r.user_id=u.id WHERE r.event_id=?'
+    const bookingQuery = 'SELECT * from registered'
+    db.query(bookingQuery, (error, results) => {
+        if (error) {
+          return res.status(500).json({type: 'error', error})
+        }
+        res.json({type: 'success', message: 'Got OK', results})
     })
   })
   routes.get('/comments', (req, res) => {

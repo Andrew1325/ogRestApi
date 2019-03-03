@@ -9,3 +9,5 @@ npm-debug.log
 
 # IDE
 .idea
+nuxt.config.js
+static
